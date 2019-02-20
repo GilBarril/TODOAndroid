@@ -1,5 +1,7 @@
 package org.udg.pds.todoandroid.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,10 +31,13 @@ public class NavDrawerActivity extends AppCompatActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
+            // ORIGINAL
             /*public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }*/
+            //EXERCICI 3
+            /*
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", new View.OnClickListener() {
@@ -41,7 +46,27 @@ public class NavDrawerActivity extends AppCompatActivity
                                 Toast.makeText(NavDrawerActivity.this, "Hola!", Toast.LENGTH_LONG).show();
                             }}).show();
 
+            }*/
+            /*public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("ACTION", new View.OnClickListener() {
+                            @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(NavDrawerActivity.this, TestActivity.class);
+                            startActivity(i);
+                        }}).show();
+
+            }*/
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("ACTION", new View.OnClickListener() {@Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(NavDrawerActivity.this, TestActivity.class);
+                            startActivityForResult(i, 1);
+                        }}).show();
+
             }
+
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,6 +110,19 @@ public class NavDrawerActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+        if(requestCode ==1){if(resultCode == Activity.RESULT_OK){
+            String result=data.getStringExtra("result");
+            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        }if(resultCode == Activity.RESULT_CANCELED){//Write your code if there's no result
+        }
+        }
+
+    }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
